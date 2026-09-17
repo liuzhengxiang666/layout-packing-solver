@@ -107,16 +107,3 @@ python -m unittest discover -s tests -v
 ```
 
 完整样例输入位于 `examples/`，运行后可在自定的 `results/` 目录查看完整 JSON 与 SVG 图。
-
-## 提交到 GitHub
-
-```bash
-git init
-git add .
-git commit -m "Implement polygon layout solver"
-git branch -M main
-git remote add origin https://github.com/你的用户名/仓库名.git
-git push -u origin main
-```
-
-最后把仓库链接提交给面试官即可。不要照抄“我理解并确认”的表述；建议先按上面的算法说明和测试亲自走一遍，再换成你自己的理解。
