@@ -1,0 +1,145 @@
+{
+  "feasible": true,
+  "placements": [
+    {
+      "name": "fridge",
+      "type": "fridge",
+      "center": [
+        56563.4095,
+        36146.18392308
+      ],
+      "angle": 90.0,
+      "size": [
+        1220.0,
+        1330.0
+      ],
+      "againstWall": true,
+      "openingDirection": [
+        1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "shelf-1",
+      "type": "shelf",
+      "center": [
+        56798.3095,
+        37353.006
+      ],
+      "angle": 0.0,
+      "size": [
+        1000.0,
+        400.0
+      ],
+      "againstWall": true
+    },
+    {
+      "name": "shelf-2",
+      "type": "shelf",
+      "center": [
+        56598.2095,
+        35253.106
+      ],
+      "angle": 0.0,
+      "size": [
+        1000.0,
+        400.0
+      ],
+      "againstWall": true
+    },
+    {
+      "name": "shelf-3",
+      "type": "shelf",
+      "center": [
+        56598.2095,
+        34755.78466071
+      ],
+      "angle": 0.0,
+      "size": [
+        1000.0,
+        400.0
+      ],
+      "againstWall": true
+    },
+    {
+      "name": "shelf-4",
+      "type": "shelf",
+      "center": [
+        56598.2095,
+        34258.46332143
+      ],
+      "angle": 0.0,
+      "size": [
+        1000.0,
+        400.0
+      ],
+      "againstWall": true
+    },
+    {
+      "name": "shelf-5",
+      "type": "shelf",
+      "center": [
+        56598.2095,
+        33761.14198214
+      ],
+      "angle": 0.0,
+      "size": [
+        1000.0,
+        400.0
+      ],
+      "againstWall": true
+    },
+    {
+      "name": "overShelf-1",
+      "type": "overShelf",
+      "center": [
+        57559.02378571,
+        37253.006
+      ],
+      "angle": 90.0,
+      "size": [
+        600.0,
+        400.0
+      ],
+      "againstWall": true
+    },
+    {
+      "name": "overShelf-2",
+      "type": "overShelf",
+      "center": [
+        57748.2095,
+        35853.106
+      ],
+      "angle": 0.0,
+      "size": [
+        600.0,
+        400.0
+      ],
+      "againstWall": true
+    },
+    {
+      "name": "overShelf-3",
+      "type": "overShelf",
+      "center": [
+        56798.2095,
+        33263.82064286
+      ],
+      "angle": 0.0,
+      "size": [
+        600.0,
+        400.0
+      ],
+      "againstWall": true
+    }
+  ],
+  "assumptions": {
+    "fridgeClearanceDepth": 10.0,
+    "outwardDoorAccessDepth": 100.0,
+    "touchingEdgesAllowed": true
+  },
+  "search": {
+    "nodes": 10,
+    "backtracks": 0,
+    "candidates": 11009
+  }
+}

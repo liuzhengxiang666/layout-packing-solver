@@ -1,0 +1,131 @@
+{
+  "feasible": true,
+  "placements": [
+    {
+      "name": "fridge",
+      "type": "fridge",
+      "center": [
+        30931.2885,
+        33985.6321
+      ],
+      "angle": 90.0,
+      "size": [
+        1220.0,
+        1330.0
+      ],
+      "againstWall": true,
+      "openingDirection": [
+        -1.0,
+        0.0
+      ]
+    },
+    {
+      "name": "shelf-1",
+      "type": "shelf",
+      "center": [
+        30047.44113158,
+        34469.9295
+      ],
+      "angle": 90.0,
+      "size": [
+        1000.0,
+        400.0
+      ],
+      "againstWall": true
+    },
+    {
+      "name": "shelf-2",
+      "type": "shelf",
+      "center": [
+        29572.96744737,
+        34469.9295
+      ],
+      "angle": 90.0,
+      "size": [
+        1000.0,
+        400.0
+      ],
+      "againstWall": true
+    },
+    {
+      "name": "shelf-3",
+      "type": "shelf",
+      "center": [
+        29493.4885,
+        33305.0295
+      ],
+      "angle": 0.0,
+      "size": [
+        1000.0,
+        400.0
+      ],
+      "againstWall": true
+    },
+    {
+      "name": "shelf-4",
+      "type": "shelf",
+      "center": [
+        29493.4885,
+        32555.0295
+      ],
+      "angle": 0.0,
+      "size": [
+        1000.0,
+        400.0
+      ],
+      "againstWall": true
+    },
+    {
+      "name": "overShelf-1",
+      "type": "overShelf",
+      "center": [
+        30230.62379412,
+        32300.1295
+      ],
+      "angle": 90.0,
+      "size": [
+        600.0,
+        400.0
+      ],
+      "againstWall": true
+    },
+    {
+      "name": "overShelf-2",
+      "type": "overShelf",
+      "center": [
+        30702.09438235,
+        32300.1295
+      ],
+      "angle": 90.0,
+      "size": [
+        600.0,
+        400.0
+      ],
+      "againstWall": true
+    },
+    {
+      "name": "overShelf-3",
+      "type": "overShelf",
+      "center": [
+        31196.3885,
+        32340.1295
+      ],
+      "angle": 90.0,
+      "size": [
+        600.0,
+        400.0
+      ],
+      "againstWall": true
+    }
+  ],
+  "assumptions": {
+    "fridgeClearanceDepth": 10.0,
+    "outwardDoorAccessDepth": 100.0,
+    "touchingEdgesAllowed": true
+  },
+  "search": {
+    "nodes": 9,
+    "backtracks": 0,
+    "candidates": 7866
+  }
+}

@@ -1,0 +1,122 @@
+# 多边形储物间设备摆放求解器
+
+这是题目要求的完整、可直接运行的 Python 实现。程序读取房间轮廓、门和矩形设备，在不越界、不相互重叠、不遮挡门的前提下输出每件设备的中心点与旋转角度；搜索时优先使用贴墙位置。
+
+## 1. 核心实现逻辑
+
+### AI 使用说明
+
+- 使用工具：OpenAI Codex。
+- AI 协助内容：题意拆解、几何算法设计、代码生成、自动测试、SVG 可视化和 README 整理。
+- 我理解并确认的关键逻辑：坐标系和角度含义、矩形与凹多边形的包含判定、SAT 碰撞检测、内开门禁放区、冰箱开门边净空，以及“优先贴墙”的候选排序与回溯搜索。实际提交前建议根据现场规范确认冰箱门前需要预留的真实深度。
+
+### 几何建模
+
+1. 房间由首尾相连的简单多边形表示，支持凹多边形和斜边。
+2. 物体用带方向矩形表示。角度为输入尺寸 `[length, width]` 的 `length` 边相对全局 x 轴逆时针旋转的角度，统一输出到 `[0, 180)`。
+3. 矩形必须完全在房间内。判定同时检查顶点/边中点包含关系与边界的真交叉，避免矩形跨过凹角缺口。
+4. 两矩形用分离轴定理（SAT）检查严格重叠；边或角刚好接触允许，因此货架可以并排贴放。
+5. 内开门建立 `N × N` 的室内禁放矩形，其中 `N` 为门宽。外开门在门内侧保留默认 100 mm 的出入口带，避免设备直接封门。
+6. 冰箱的 `length` 边视为开门边。题目没有给净空数值，所以默认只保留 10 mm 的“不得贴物”带；可用 `--fridge-clearance` 改成项目要求（例如 600 mm）。
+
+### 搜索策略
+
+1. 从每条轮廓边生成平行/垂直的贴墙候选位置。
+2. 再按网格生成室内候选，作为贴墙无解时的回退。
+3. 冰箱及大物件优先放置；相同物件使用对称性剪枝，避免重复交换产生等价搜索。
+4. 候选位置依次做越界、门禁区、冰箱净空及物体间碰撞检查，使用确定性回溯找到第一组解。
+5. `againstWall` 标记便于检查贴墙优先结果；给定的四个样例中所有物件均找到贴墙解。
+
+这是离散候选 + 回溯的工程型启发式算法，不是连续空间完备证明器：返回 `feasible: true` 一定是一组已通过约束检查的解；返回 `false` 表示在当前步长和搜索上限内未找到解，不严格等价于数学上无解。减小步长或提高节点上限可扩大搜索范围。
+
+## 2. 运行环境及方式
+
+- Python 3.10 及以上（仅使用标准库，无第三方依赖）
+- Windows、macOS、Linux 均可
+
+在仓库根目录运行：
+
+```bash
+python main.py examples/example1.json
+```
+
+保存 JSON 结果并生成可视化：
+
+```bash
+python main.py examples/example1.json -o results/example1-result.json --svg results/example1.svg
+```
+
+采用 600 mm 冰箱门前净空、更细的 50 mm 搜索步长：
+
+```bash
+python main.py examples/example1.json --fridge-clearance 600 --grid-step 50 --wall-step 50
+```
+
+验证已有输出：
+
+```bash
+python validate.py examples/example1.json results/example1-result.json
+```
+
+运行全部测试（包含四个给定样例）：
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+常用参数：
+
+| 参数 | 默认值 | 含义 |
+| --- | ---: | --- |
+| `--grid-step` | 100 | 室内候选网格间距（mm） |
+| `--wall-step` | 100 | 物体沿墙滑动间距（mm） |
+| `--fridge-clearance` | 10 | 冰箱开门边禁放带深度（mm） |
+| `--outward-door-depth` | 100 | 外开门室内出入口带深度（mm） |
+| `--node-limit` | 500000 | 最大回溯节点数 |
+
+进程退出码：找到可行解为 `0`，输入错误或未找到解为 `2`。
+
+## 3. 既定输入输出示例
+
+输入：`examples/example1.json`。
+
+输出节选：
+
+```json
+{
+  "feasible": true,
+  "placements": [
+    {
+      "name": "iceMaker",
+      "type": "iceMaker",
+      "center": [6741.6357, 30061.41785],
+      "angle": 0.0,
+      "size": [760.0, 850.0],
+      "againstWall": true
+    },
+    {
+      "name": "fridge",
+      "type": "fridge",
+      "center": [6456.6357, 31101.88251818],
+      "angle": 90.0,
+      "size": [1220.0, 1330.0],
+      "againstWall": true
+    }
+  ]
+}
+```
+
+完整样例输入位于 `examples/`，运行后可在自定的 `results/` 目录查看完整 JSON 与 SVG 图。
+
+## 提交到 GitHub
+
+```bash
+git init
+git add .
+git commit -m "Implement polygon layout solver"
+git branch -M main
+git remote add origin https://github.com/你的用户名/仓库名.git
+git push -u origin main
+```
+
+最后把仓库链接提交给面试官即可。不要照抄“我理解并确认”的表述；建议先按上面的算法说明和测试亲自走一遍，再换成你自己的理解。
